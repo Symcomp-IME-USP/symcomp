@@ -6,9 +6,13 @@ First, install the packages required for the project
 pnpm install
 ```
 
-We are using the **Google Sheets API**. For that, we created the credentials using Semana da Computação's email on console.cloud.google.com.
+Then, copy the .env
 
-Then, make sure you have the **Google Credentials** file to run the project. You must place it on "/app/util/g-credentials.json".
+```bash
+cp .env.example .env
+```
+
+Check with other members the details of those variables.
 
 ## Running the project
 
