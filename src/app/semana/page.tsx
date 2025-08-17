@@ -1,104 +1,216 @@
-import Image from 'next/image'
-import Link from 'next/link'
-
-import { CustomButton } from '@/components/ui/custom-button'
-import { barlowCondensed } from '@/lib/font'
-import { cn } from '@/lib/utils'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export default function Semana() {
-  const pictures2024 = [
+  const cronograma: Programacao[] = [
     {
-      src: '/photos/valentina.JPG',
-      alt: 'No palco do auditório Jacy Monteiro, Valentina apresenta sua aula sobre GitHub.',
+      date: '2025-10-24',
+      atividades: [
+        {
+          titulo: 'Abertura e boas-vindas',
+          tipo: 'palestra',
+          status: 'confirmada',
+          comecaAs: '12:00',
+          terminaAs: '13:00',
+        },
+        {
+          titulo: 'Design generativo e arte algorítmica',
+          tipo: 'palestra',
+          status: 'confirmada',
+          comecaAs: '13:30',
+          terminaAs: '15:00',
+        },
+        {
+          titulo: 'Coffee break',
+          tipo: 'coffee_break',
+          status: 'confirmada',
+          comecaAs: '15:00',
+          terminaAs: '15:30',
+        },
+        {
+          titulo: 'Conversa com artistas locais',
+          tipo: 'conversa',
+          status: 'provisoria',
+          comecaAs: '15:30',
+          terminaAs: '17:00',
+        },
+      ],
     },
     {
-      src: '/photos/plateia.JPG',
-      alt: 'Vários alunos sentados no auditório. As cadeiras são vermelhas e detalhes em preto. Elas se encontram elevadas para melhor visão do palestrante.',
+      date: '2025-10-25',
+      atividades: [
+        {
+          titulo: 'Palestra: Ética em Inteligência Artificial',
+          tipo: 'palestra',
+          status: 'confirmada',
+          comecaAs: '12:00',
+          terminaAs: '13:30',
+        },
+        {
+          titulo: 'Oficina interativa de tipografia digital',
+          tipo: 'conversa',
+          status: 'confirmada',
+          comecaAs: '14:00',
+          terminaAs: '16:00',
+        },
+        {
+          titulo: 'Coffee break',
+          tipo: 'coffee_break',
+          status: 'confirmada',
+          comecaAs: '16:00',
+          terminaAs: '16:30',
+        },
+        {
+          titulo: 'Mesa-redonda: Design, Arte e Sociedade',
+          tipo: 'conversa',
+          status: 'provisoria',
+          comecaAs: '16:30',
+          terminaAs: '18:00',
+        },
+      ],
     },
     {
-      src: '/photos/rede_linux.JPG',
-      alt: 'Três alunos apresentam o projeto da rede linux no projetor do auditório.',
+      date: '2025-10-26',
+      atividades: [
+        {
+          titulo: 'Palestra: Interação humano-computador',
+          tipo: 'palestra',
+          status: 'confirmada',
+          comecaAs: '12:00',
+          terminaAs: '13:00',
+        },
+        {
+          titulo: 'Conversa: Futuro do design de interfaces',
+          tipo: 'conversa',
+          status: 'confirmada',
+          comecaAs: '13:30',
+          terminaAs: '15:00',
+        },
+        {
+          titulo: 'Coffee break',
+          tipo: 'coffee_break',
+          status: 'confirmada',
+          comecaAs: '15:00',
+          terminaAs: '15:30',
+        },
+        {
+          titulo: 'Workshop: Criatividade assistida por IA',
+          tipo: 'conversa',
+          status: 'provisoria',
+          comecaAs: '15:30',
+          terminaAs: '17:30',
+        },
+      ],
     },
     {
-      src: '/photos/equipe_lpy.JPG',
-      alt: 'Três dos organizadores, vestidos com a camiseta do evento em rosa, estão configurando o som para próxima apresentação.',
+      date: '2025-10-27',
+      atividades: [
+        {
+          titulo: 'Palestra: Computação e estética',
+          tipo: 'palestra',
+          status: 'confirmada',
+          comecaAs: '12:00',
+          terminaAs: '13:30',
+        },
+        {
+          titulo: 'Conversa aberta: Arte digital no Brasil',
+          tipo: 'conversa',
+          status: 'provisoria',
+          comecaAs: '14:00',
+          terminaAs: '15:30',
+        },
+        {
+          titulo: 'Coffee break',
+          tipo: 'coffee_break',
+          status: 'confirmada',
+          comecaAs: '15:30',
+          terminaAs: '16:00',
+        },
+        {
+          titulo: 'Mesa-redonda internacional',
+          tipo: 'conversa',
+          status: 'confirmada',
+          comecaAs: '16:00',
+          terminaAs: '18:00',
+        },
+      ],
     },
     {
-      src: '/photos/encontro.JPG',
-      alt: 'Em roda, vários ex-alunos e atuais professores do departamento conversam com alunos da graduação sobre suas experiências.',
-    },
-    {
-      src: '/photos/coffee_break.JPG',
-      alt: 'Em um corredor amplo, alunos participantes das palestras confraternizam e conversam no Bloco B do IME - USP',
-    },
-    {
-      src: '/photos/coffee_break2.JPG',
-      alt: 'Alunos em rosa da organização distribuem bolo para os participantes da palestra com professores',
+      date: '2025-10-28',
+      atividades: [
+        {
+          titulo: 'Palestra final: Caminhos do design computacional',
+          tipo: 'palestra',
+          status: 'confirmada',
+          comecaAs: '12:00',
+          terminaAs: '13:30',
+        },
+        {
+          titulo: 'Painel de encerramento',
+          tipo: 'encerramento',
+          status: 'confirmada',
+          comecaAs: '14:00',
+          terminaAs: '15:30',
+        },
+        {
+          titulo: 'Coffee break',
+          tipo: 'coffee_break',
+          status: 'confirmada',
+          comecaAs: '15:30',
+          terminaAs: '16:00',
+        },
+        {
+          titulo: 'Encerramento oficial',
+          tipo: 'encerramento',
+          status: 'confirmada',
+          comecaAs: '16:00',
+          terminaAs: '18:00',
+        },
+      ],
     },
   ]
 
   return (
-    <div>
-      <div className="flex flex-col gap-[25px] w-full h-svh justify-center items-center bg-sc-2025-background">
-        <div className="w-full flex justify-center items-center bg-sc-2025-contrast h-[70px] lg:h-[120px]">
-          <div className="flex flex-col">
-            <div className="flex flex-row gap-4 items-end">
-              <h2
-                className={cn(
-                  barlowCondensed.className,
-                  'font-bold text-6xl lg:text-8xl italic text-sc-2025-primary sc-2025-text-shadow-solid',
-                )}
-              >
-                SEMANA
-              </h2>
-              <h2
-                className={cn(
-                  barlowCondensed.className,
-                  'font-bold text-4xl lg:text-6xl italic text-sc-2025-background sc-2025-text-shadow-solid',
-                )}
-              >
-                XV
-              </h2>
-            </div>
-            <h2
-              className={cn(
-                barlowCondensed.className,
-                'font-bold text-5xl lg:text-7xl italic text-sc-2025-secondary sc-2025-text-shadow-solid',
-              )}
+    <div className="bg-sc-2025-background w-full h-full">
+      <Tabs defaultValue="2025-10-24">
+        <TabsList>
+          {cronograma.map((programacao, index) => (
+            <TabsTrigger
+              value={programacao.date}
+              key={`cronograma-tab-trigger-${programacao.date}`}
             >
-              DA COMPUTAÇÃO
-            </h2>
-          </div>
-        </div>
-        <div className="mt-[50px] flex flex-col lg:flex-row gap-4">
-          <CustomButton color="white">
-            <Link href="https://forms.gle/ZTL8WRMhWsarFTUV9">
-              Participar da organização
-            </Link>
-          </CustomButton>
-          <CustomButton color="white">
-            <a href="mailto:semanadacomputacao@ime.usp.br">Patrocinar o evento</a>
-          </CustomButton>
-        </div>
-      </div>
-      <div className="flex flex-col bg-sc-2025-background justify-center items-center">
-        <h2 className="font-bold text-2xl lg:text-2xl text-black symcomp-border py-2 px-8 bg-white">
-          EDIÇÃO DE 2024
-        </h2>
-
-        <div className="w-fit flex flex-row flex-wrap justify-center items-center p-[50px] gap-4">
-          {pictures2024.map((pictures) => (
-            <Image
-              key={pictures.src}
-              width={720}
-              height={1280}
-              src={pictures.src}
-              className="w-[640px] symcomp-border"
-              alt={pictures.alt}
-            />
+              {24 + index}
+            </TabsTrigger>
           ))}
-        </div>
-      </div>
+        </TabsList>
+        {cronograma.map((programacao) => (
+          <TabsContent
+            value={programacao.date}
+            key={`cronograma-tab-content-${programacao.date}`}
+          >
+            {programacao.atividades.map((atividade) => (
+              <div key={`atividade-as-${atividade.comecaAs}`}>
+                <strong>
+                  {atividade.comecaAs} - {atividade.terminaAs}
+                </strong>{' '}
+                | {atividade.titulo}
+              </div>
+            ))}
+          </TabsContent>
+        ))}
+      </Tabs>
     </div>
   )
+}
+
+export type Programacao = {
+  date: string
+  atividades: Atividade[]
+}
+
+export type Atividade = {
+  titulo: string
+  tipo: 'palestra' | 'encerramento' | 'conversa' | 'coffee_break'
+  status: 'provisoria' | 'confirmada'
+  comecaAs: string
+  terminaAs: string
 }
