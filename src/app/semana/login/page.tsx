@@ -33,10 +33,10 @@ export default function LoginPage() {
 
   const { isPending, mutate } = useMutation({
     mutationFn: async (values: z.infer<typeof formSchema>) => {
-      CreateLoginToken(values)
+      return await CreateLoginToken(values)
     },
     onSuccess: (data) => {
-      console.log('Login realizado com sucesso:', data)
+      console.log('Login realizado com sucesso:', data.access)
     },
     onError: (error) => {
       console.error('Erro no login:', error)

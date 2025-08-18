@@ -1,5 +1,3 @@
-import { Token } from '@/types/token'
-
 import { api } from './api'
 
 interface CreateLoginTokenRequest {
@@ -7,7 +5,9 @@ interface CreateLoginTokenRequest {
   password: string
 }
 
-type CreateLoginTokenResponse = Token
+type CreateLoginTokenResponse = {
+  access: string
+}
 
 export default async function CreateLoginToken({
   email,
