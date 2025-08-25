@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ChangeEvent, FormEvent } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 const API_URL = 'http://127.0.0.1:8000/api'
@@ -23,11 +24,11 @@ type Feedback = {
 const emptyFeedback: Feedback = { name: [], email: [], password: [] }
 
 export default function CadastroPage() {
-  const [fields, setFields] = useState<Fields>({ name: '', email: '', password: '' })
+  const router = useRouter()
 
+  const [fields, setFields] = useState<Fields>({ name: '', email: '', password: '' })
   // Essa variável contém, se existirem, erros relacionados aos campos do formulário.
   const [feedback, setFeedback] = useState<Feedback>(emptyFeedback)
-
   // O formulário só é enviado quando nenhum campo está vazio.
   const isFormValid =
     fields.name.length > 0 && fields.email.length > 0 && fields.password.length > 0
@@ -63,6 +64,11 @@ export default function CadastroPage() {
 
       if (response.ok) {
         setFeedback(emptyFeedback)
+
+        // Salva o email no localStorage.
+        localStorage.setItem('email', fields.email)
+        // Redireciona para a página de verificação.
+        router.push('/semana/cadastro/verificar')
       } else {
         setFeedback(responseData)
       }

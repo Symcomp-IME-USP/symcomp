@@ -7,6 +7,7 @@ import Image from 'next/image'
 
 export default function VerificarPage() {
   const [code, setCode] = useState('')
+  const email = localStorage.getItem('email')
 
   const isFormValid = code.length > 0
 
@@ -24,8 +25,9 @@ export default function VerificarPage() {
         <h2 className="text-xl font-semibold">Verificar email</h2>
 
         <p className="text-sm">
-          Um código de verificação foi enviado para o seu email. Insira o código abaixo
-          para finalizar o cadastro.
+          Um código de verificação foi enviado para o email{' '}
+          <span className="font-mono bg-rose-200 p-1">{email}</span>. Insira o código
+          abaixo para finalizar o cadastro.
         </p>
 
         <label className="grid">
