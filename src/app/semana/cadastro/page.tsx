@@ -1,34 +1,57 @@
 'use client'
 
 import { useState } from 'react'
-import { FormEvent } from 'react'
+import { ChangeEvent, FormEvent } from 'react'
 import Image from 'next/image'
 
 const API_URL = 'http://127.0.0.1:8000/api'
-const emptyFeedback = { name: [], email: [], password: [] }
+
+// Representa os campos do formulário.
+type Fields = {
+  name: string
+  email: string
+  password: string
+}
+
+// Representa um feedback retornado pelo servidor após o formulário ser enviado.
+type Feedback = {
+  name: string[]
+  email: string[]
+  password: string[]
+}
+
+const emptyFeedback: Feedback = { name: [], email: [], password: [] }
 
 export default function CadastroPage() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [fields, setFields] = useState<Fields>({ name: '', email: '', password: '' })
 
   // Essa variável contém, se existirem, erros relacionados aos campos do formulário.
-  const [feedback, setFeedback] = useState(emptyFeedback)
+  const [feedback, setFeedback] = useState<Feedback>(emptyFeedback)
 
   // O formulário só é enviado quando nenhum campo está vazio.
-  const isFormValid = name.length > 0 && email.length > 0 && password.length > 0
+  const isFormValid =
+    fields.name.length > 0 && fields.email.length > 0 && fields.password.length > 0
 
+  // Atualiza os campos do formulário.
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFields((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }))
+  }
+
+  // Trata o envio do formulário.
   const handleSubmit = async (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault()
 
     const url = `${API_URL}/register/`
-    const data = { name, email, password }
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(fields),
     }
 
     // Realiza a requisição.
@@ -66,8 +89,8 @@ export default function CadastroPage() {
           <input
             type="text"
             name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={fields.name}
+            onChange={handleChange}
             className="border rounded p-2 mt-1"
           />
           {feedback.name?.map((password, index) => (
@@ -82,8 +105,8 @@ export default function CadastroPage() {
           <input
             type="email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={fields.email}
+            onChange={handleChange}
             className="border rounded p-2 mt-1"
           />
           {feedback.email?.map((password, index) => (
@@ -98,8 +121,8 @@ export default function CadastroPage() {
           <input
             type="text"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={fields.password}
+            onChange={handleChange}
             className="border rounded p-2 mt-1"
           />
           {feedback.password?.map((password, index) => (
