@@ -2,18 +2,51 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useState, FormEvent } from 'react'
 import Image from 'next/image'
+
+const API_URL = 'http://127.0.0.1:8000/api'
 
 export default function VerificarPage() {
   const [code, setCode] = useState('')
-  const email = localStorage.getItem('email')
+  const [error, setError] = useState('')
 
+  const email = localStorage.getItem('email')
   const isFormValid = code.length > 0
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const url = `${API_URL}/validate-code/`
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, code }),
+    }
+
+    try {
+      const response = await fetch(url, options)
+      const responseData = await response.json()
+
+      if (response.ok) {
+        console.log('Código validado com sucesso!')
+      } else {
+        const error: string = responseData.error
+        setError(error)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className="max-w-2xl mx-auto p-6 grid gap-6">
-      <form className="border rounded-2xl p-6 shadow-sm bg-white grid gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className="border rounded-2xl p-6 shadow-sm bg-white grid gap-4"
+      >
         <Image
           alt="Logo da Symcomp"
           src="/logo/symcomp.png"
@@ -39,6 +72,7 @@ export default function VerificarPage() {
             onChange={(e) => setCode(e.target.value)}
             className="border rounded p-2 mt-1"
           />
+          <span className="text-sm text-red-600 ml-3">{error}</span>
         </label>
 
         <button
